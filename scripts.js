@@ -7,60 +7,134 @@ let sobremesa = "";
 let total = 0;
 
 function escolherPrato(event) {
-    pratos.forEach((prato) =>{
-        if (prato.classList.contains("selected") && prato !== event.target) {
-            prato.classList.remove("selected");
-        }
-    });
+   const pratoSelecionado = event.currentTarget.closest('.prato');
 
-    event.target.classList.toggle("selected");
+   if (!pratoSelecionado) {
+     return;
+   }
 
-    prato = event.target.querySelector("h4").textContent;
+   if (pratoSelecionado.classList.contains('selected')) {
+     return;
+   }
 
-    calcularTotal();
-}
+   pratoSelecionado.classList.add('selected');
 
 
-function escolherBebida(event) {
-    bebidas.forEach((bebida) =>{
-        if (bebida.classList.contains("selected") && bebida !== event.target){
-            bebida.classList.remove("selected");
-        }
-    });
 
-    event.target.classList.toggle("selected");
+   pratos.forEach((prato) => {
+     if (prato !== pratoSelecionado && prato.classList.contains('selected')) {
+       prato.classList.remove('selected');
+     }
+   });
 
-    bebida = event.target.querySelector("h4").textContent;
+   const prato = pratoSelecionado.querySelector('h4');
 
-    calcularTotal();
-}
+
+
+   ativarBotao();
+   calcularTotal();
+ }
+ 
+ pratos.forEach(prato => {
+   const elementosFilhos = prato.querySelectorAll('*');
+
+   elementosFilhos.forEach(elemento => {
+     elemento.addEventListener('click', (event) => {
+       escolherPrato(event);
+     });
+   });
+ });
+
+
+
+
+ function escolherBebida(event) {
+   const bebidaSelecionada = event.currentTarget.closest('.bebida');
+
+   if (!bebidaSelecionada) {
+     return;
+   }
+
+   if (bebidaSelecionada.classList.contains('selected')) {
+     return;
+   }
+
+   bebidaSelecionada.classList.add('selected');
+
+   bebidas.forEach((bebida) => {
+     if (bebida !== bebidaSelecionada && bebida.classList.contains('selected')) {
+       bebida.classList.remove('selected');
+     }
+   });
+
+   const bebida = bebidaSelecionada.querySelector('h4');
+
+
+   ativarBotao();
+   calcularTotal();
+ }
+
+ bebidas.forEach(bebida => {
+   const elementosFilhos = bebida.querySelectorAll('*');
+
+   elementosFilhos.forEach(elemento => {
+     elemento.addEventListener('click', (event) => {
+       escolherBebida(event);
+     });
+   });
+ });
+
 
 
 function escolherSobremesa(event) {
-    sobremesas.forEach((sobremesa) =>{
-        if (sobremesa.classList.contains("selected") && sobremesa !== event.target){
-            sobremesa.classList.remove("selected");
-        }
-    });
+ const sobremesaSelecionada = event.currentTarget.closest('.sobremesa');
 
-    event.target.classList.toggle("selected");
+ if (!sobremesaSelecionada) {
+   return;
+ }
 
-    sobremesa = event.target.querySelector("h4").textContent;
+ if (sobremesaSelecionada.classList.contains('selected')) {
+   return;
+ }
 
-    calcularTotal();
-}
+ sobremesaSelecionada.classList.add('selected');
+
+  sobremesas.forEach((sobremesa) => {
+   if (sobremesa !== sobremesaSelecionada && sobremesa.classList.contains('selected')) {
+     sobremesa.classList.remove('selected');
+   }
+  });
+
+  const sobremesa = sobremesaSelecionada.querySelector('h4');
+
+
+  ativarBotao();
+  calcularTotal();
+ }
+
+ sobremesas.forEach(sobremesa => {
+  const elementosFilhos = sobremesa.querySelectorAll('*');
+
+  elementosFilhos.forEach(elemento => {
+    elemento.addEventListener('click', (event) => {
+      escolherSobremesa(event);
+  });
+ });
+});
 
 
 function ativarBotao() {
     const button = document.querySelector("button");
 
-    if (prato !== undefined && bebida !== undefined && sobremesa !== undefined) {
+    if (prato !== "" && bebida !== "" && sobremesa !== "") {
         button.classList.remove("disabled");
         button.textContent = "Fechar pedido";
     }
-    
+
     button.addEventListener("click", enviarPedido);
+    console.log("Botão ativado!");
 }
+
 
 
 function calcularTotal(){
