@@ -69,7 +69,7 @@ function calcularTotal(){
     produtosSelecionados.forEach((produto) => {
         const precoTexto = produto.querySelector("p").textContent;
         const preco = Number(precoTexto.replace("R$ ", "").replace(",", "."));
-        total +=preco;
+        window.total += preco;
     });
 }
 
