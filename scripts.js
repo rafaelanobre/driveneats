@@ -27,7 +27,7 @@ function escolherPrato(event) {
      }
    });
 
-   const prato = pratoSelecionado.querySelector('h4');
+   const prato = pratoSelecionado.querySelector('h4').textContent;
 
 
 
@@ -67,7 +67,7 @@ function escolherPrato(event) {
      }
    });
 
-   const bebida = bebidaSelecionada.querySelector('h4');
+   const bebida = bebidaSelecionada.querySelector('h4').textContent;
 
 
    ativarBotao();
@@ -105,7 +105,7 @@ function escolherSobremesa(event) {
    }
   });
 
-  const sobremesa = sobremesaSelecionada.querySelector('h4');
+  const sobremesa = sobremesaSelecionada.querySelector('h4').textContent;
 
 
   ativarBotao();
@@ -127,12 +127,14 @@ function ativarBotao() {
     const button = document.querySelector("button");
 
     if (prato !== "" && bebida !== "" && sobremesa !== "") {
-        button.classList.remove("disabled");
-        button.textContent = "Fechar pedido";
+        button.disabled = false;
+        button.innerHTML = "Fechar pedido";
+        button.style.backgroundColor = "#32B72F";
+        console.log("Botão ativado!");
     }
 
     button.addEventListener("click", enviarPedido);
-    console.log("Botão ativado!");
+    
 }
 
 
